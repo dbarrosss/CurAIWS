@@ -1,9 +1,10 @@
 import asyncio
 import websockets
 import questions
+import signal
 
 
-async def websocket_handler(websocket, path):
+async def websocket_handler(websocket):
     current_node = 0
     
     X = questions.carregar_csv()
@@ -28,8 +29,11 @@ async def websocket_handler(websocket, path):
 
 
 async def main():
+    loop = asyncio.get_running_loop()
+    stop = loop.create_future()
+    loop.add_signal_handler(signal.SIGTERM, stop.set_result, None)
     async with websockets.serve(websocket_handler, host='localhost', port=8765):
-        await asyncio.Future()  # Mantém o servidor WebSocket em execução
+        await stop
 
 
 if __name__ == "__main__":
