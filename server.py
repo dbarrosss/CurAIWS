@@ -32,7 +32,7 @@ async def main():
     loop = asyncio.get_running_loop()
     stop = loop.create_future()
     loop.add_signal_handler(signal.SIGTERM, stop.set_result, None)
-    async with websockets.serve(websocket_handler, host='localhost', port=8765):
+    async with websockets.serve(websocket_handler, host='', port=8765):
         await stop
 
 
