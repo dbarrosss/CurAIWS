@@ -4,7 +4,6 @@ import questions
 
 
 async def websocket_handler(websocket, path):
-    await websocket.accept()
     current_node = 0
     
     X = questions.carregar_csv()
@@ -29,7 +28,7 @@ async def websocket_handler(websocket, path):
 
 
 async def main():
-    async with websockets.serve(websocket_handler, host='', port=8765):
+    async with websockets.serve(websocket_handler, host='localhost', port=8765):
         await asyncio.Future()  # Mantém o servidor WebSocket em execução
 
 
