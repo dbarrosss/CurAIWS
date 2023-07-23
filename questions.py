@@ -17,7 +17,7 @@ def fazer_perguntas(modelo, node, feature_names):
     threshold = modelo.tree_.threshold[node]
     feature_name = feature_names[feature]
 
-    return "O valor de {} é maior que {}? (Sim/Não): ".format(feature_name, threshold)
+    return str(feature_name)
 
 def carregar_csv():
     # adquirindo as colunas para perguntas
