@@ -6,9 +6,9 @@ import signal
 
 async def websocket_handler(websocket):
     current_node = 0
-    
     X = questions.carregar_csv()
     modelo_carregado = questions.carregar_ia()
+    visited_nodes = []
     
     while True:
         pergunta = questions.fazer_perguntas(modelo_carregado, current_node, X.columns)
@@ -24,6 +24,8 @@ async def websocket_handler(websocket):
 
         if resposta.lower() == 'sim':
             current_node = modelo_carregado.tree_.children_right[current_node]
+        elif resposta.lower() == 'voltar':
+            current_node = visited_nodes.pop()
         else:
             current_node = modelo_carregado.tree_.children_left[current_node]
 
