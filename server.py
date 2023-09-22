@@ -23,10 +23,12 @@ async def websocket_handler(websocket):
         resposta = await websocket.recv()
 
         if resposta.lower() == 'sim':
+            visited_nodes.append(current_node)
             current_node = modelo_carregado.tree_.children_right[current_node]
         elif resposta.lower() == 'voltar':
             current_node = visited_nodes.pop()
         else:
+            visited_nodes.append(current_node)
             current_node = modelo_carregado.tree_.children_left[current_node]
 
 
